@@ -2,32 +2,36 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, Loader2 } from 'lucide-react';
 import { Button } from './Button';
 import { ChatMessage } from '../types';
-import { GoogleGenAI, Chat } from "@google/genai";
+import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
 
 export const AICoach: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
       sender: 'ai',
-      text: 'Привет! Я ваш AI-коуч по делегированию. У вас есть сомнения по поводу какой-то задачи или вы не знаете, кому её поручить? Расскажите мне ситуацию.',
+      text: 'Привет! Я ваш AI Коуч по делегированию. У вас есть сомнения по поводу какой-то задачи или вы не знаете, кому её поручить? Расскажите мне ситуацию.',
       timestamp: new Date()
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
-  // Initialize Gemini Chat Session
-  // Using lazy initialization to create the session once
-  const [chatSession] = useState<Chat>(() => {
-     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-     return ai.chats.create({
+  const [chatSession, setChatSession] = useState<Chat | null>(null);
+
+  useEffect(() => {
+    try {
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const chat = ai.chats.create({
         model: 'gemini-3-flash-preview',
         config: {
-            systemInstruction: "Ты - ProTalk AI, опытный бизнес-коуч и эксперт по делегированию. Твоя цель - помогать руководителям эффективно распределять задачи. Помогай определить, можно ли делегировать задачу, кому именно, и как правильно поставить задачу. Будь краток, конкретен и поддерживай профессиональный, но дружелюбный тон."
-        }
-     });
-  });
-  
+          systemInstruction: 'You are an AI Coach specializing in delegation skills. You help managers overcome fear of delegation, choose the right employees, and formulate tasks clearly.',
+        },
+      });
+      setChatSession(chat);
+    } catch (e) {
+      console.error("Failed to initialize AI", e);
+    }
+  }, []);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   const scrollToBottom = () => {
@@ -39,7 +43,7 @@ export const AICoach: React.FC = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || !chatSession) return;
 
     const userMsg: ChatMessage = {
       id: Date.now().toString(),
@@ -53,7 +57,7 @@ export const AICoach: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await chatSession.sendMessage({ message: userMsg.text });
+      const response: GenerateContentResponse = await chatSession.sendMessage({ message: userMsg.text });
       const responseText = response.text || "Извините, я не смог сформировать ответ.";
 
       const aiMsg: ChatMessage = {
@@ -68,7 +72,7 @@ export const AICoach: React.FC = () => {
       const errorMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         sender: 'ai',
-        text: "Извините, произошла ошибка соединения с AI.",
+        text: "Извините, произошла ошибка соединения с AI Коучем.",
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMsg]);

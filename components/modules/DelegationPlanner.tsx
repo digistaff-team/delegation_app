@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Bot, Loader2, X, Copy, Check, Calendar } from 'lucide-react';
-import { GoogleGenAI } from "@google/genai";
 import { Button } from '../Button';
 import { DelegationPlan } from '../../types';
+import { ProTalkService } from '../../services/proTalkService';
 
 export const DelegationPlanner: React.FC = () => {
   const [plan, setPlan] = useState<DelegationPlan>({
@@ -20,15 +20,18 @@ export const DelegationPlanner: React.FC = () => {
   const [aiResult, setAiResult] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
 
+  // Инициализация сервиса ProTalk с демо-данными или данными из конфига
+  const proTalkService = new ProTalkService({
+    botToken: 'demo_token', 
+    botId: 14896
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setPlan({ ...plan, [e.target.name]: e.target.value });
   };
 
   const generateInstruction = async () => {
     setIsAiLoading(true);
-    
-    // Используем Google GenAI SDK
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     const authorityMap: Record<string, string> = {
       'None': 'Нет (только исполнение)',
@@ -59,14 +62,12 @@ export const DelegationPlanner: React.FC = () => {
     `;
 
     try {
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: prompt,
-      });
-      setAiResult(response.text || "Не удалось сгенерировать ответ.");
+      const chatId = `planner_${Date.now()}`;
+      const responseText = await proTalkService.sendMessage(chatId, prompt);
+      setAiResult(responseText);
     } catch (error) {
       console.error(error);
-      setAiResult("Произошла ошибка при генерации. Пожалуйста, проверьте соединение или настройки API.");
+      setAiResult("Произошла ошибка при генерации. Пожалуйста, проверьте соединение.");
     } finally {
       setIsAiLoading(false);
     }
@@ -90,7 +91,7 @@ export const DelegationPlanner: React.FC = () => {
           <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold tracking-wide uppercase mb-2">
             Инструмент
           </span>
-          <h1 className="text-3xl font-bold text-slate-900">Конструктор Плана</h1>
+          <h1 className="text-3xl font-bold text-slate-900">Конструктор поручений</h1>
         </div>
       </header>
 
@@ -138,7 +139,7 @@ export const DelegationPlanner: React.FC = () => {
                   value={plan.taskName}
                   onChange={handleChange}
                   className={`${inputClasses} text-slate-900`}
-                  placeholder="Например: Подготовка ежемесячного отчета"
+                  placeholder="Например: Подготовка отчета"
                 />
               </div>
 
