@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, Loader2 } from 'lucide-react';
 import { Button } from './Button';
 import { ChatMessage } from '../types';
-import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
+import { ProTalkService } from '../services/proTalkService';
 
 export const AICoach: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -15,22 +15,14 @@ export const AICoach: React.FC = () => {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [chatSession, setChatSession] = useState<Chat | null>(null);
+  
+  // Use a stable chat ID for the session
+  const [chatId] = useState(() => `coach_${Date.now()}`);
 
-  useEffect(() => {
-    try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      const chat = ai.chats.create({
-        model: 'gemini-3-flash-preview',
-        config: {
-          systemInstruction: 'You are an AI Coach specializing in delegation skills. You help managers overcome fear of delegation, choose the right employees, and formulate tasks clearly.',
-        },
-      });
-      setChatSession(chat);
-    } catch (e) {
-      console.error("Failed to initialize AI", e);
-    }
-  }, []);
+  const proTalkService = new ProTalkService({
+    botToken: 'demo_token', 
+    botId: 14896
+  });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
@@ -43,7 +35,7 @@ export const AICoach: React.FC = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim() || !chatSession) return;
+    if (!input.trim()) return;
 
     const userMsg: ChatMessage = {
       id: Date.now().toString(),
@@ -57,8 +49,7 @@ export const AICoach: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response: GenerateContentResponse = await chatSession.sendMessage({ message: userMsg.text });
-      const responseText = response.text || "Извините, я не смог сформировать ответ.";
+      const responseText = await proTalkService.sendMessage(chatId, userMsg.text);
 
       const aiMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
