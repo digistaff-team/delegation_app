@@ -33,7 +33,15 @@ export class ProTalkService {
       }
 
       const data = await response.json();
-      return data.done || "Извините, я не получил корректный ответ от сервера.";
+      
+      // If we got a 200 OK but no 'done' field (or empty), use fallback
+      if (data && typeof data.done === 'string' && data.done.trim().length > 0) {
+        return data.done;
+      }
+      
+      console.warn('ProTalk API returned 200 but no valid "done" content. Falling back to simulation.', data);
+      return this.getFallbackResponse(message);
+
     } catch (error) {
       console.error('ProTalk API Error:', error);
       // Fallback for demo purposes if CORS/Network fails in this environment
@@ -46,6 +54,25 @@ export class ProTalkService {
   private getFallbackResponse(message: string): string {
     const lowerMsg = message.toLowerCase();
     
+    // Handle Delegation Planner Prompt Fallback
+    if (message.includes('Вводные данные:') || message.includes('Ты - опытный ментор')) {
+      return `[РЕЖИМ СИМУЛЯЦИИ]
+      
+Привет! Вот вариант поручения для вашего сотрудника:
+
+"Коллега, привет! У меня есть важная задача — [Название задачи].
+Контекст: [Контекст из вашего плана].
+
+Я поручаю это тебе, так как уверен в твоих навыках.
+Ожидаемый результат: [Цели].
+Срок: [Дедлайн].
+
+По полномочиям: [Полномочия].
+Давай сверим статус в точках контроля: [Точки контроля].
+
+Если возникнут вопросы — я открыт для обсуждения. Удачи!"`;
+    }
+
     if (lowerMsg.includes('привет') || lowerMsg.includes('здравств')) {
       return "Здравствуйте! Я ваш AI-коуч по делегированию. Я помогу вам разобраться, какие задачи стоит передать команде, а какие оставить себе. С чего начнем?";
     }
