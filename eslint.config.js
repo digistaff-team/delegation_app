@@ -9,6 +9,20 @@ export default [
   {
     ignores: ['dist/**', 'node_modules/**'],
   },
+  {
+    files: ['**/*.cjs'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+      parserOptions: {
+        sourceType: 'commonjs',
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
