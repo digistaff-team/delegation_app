@@ -1,17 +1,12 @@
 export const ru = {
   appTitle: 'Мастерство управления',
   sidebar: {
-    introduction: 'Введение и Теория',
-    strategy: 'Что Делегировать?',
-    assessment: 'Кому Делегировать?',
-    planningTool: 'План Делегирования',
-    aiCoach: 'AI Коуч (ProTalk)',
-    biteSizedTraining: 'Bite-Sized Training™',
-    basedOnMindTools: 'Основано на материалах Mind Tools',
-    delegationAi: {
-      part1: 'Delegation',
-      part2: 'AI',
-    },
+    introduction: 'Введение и теория',
+    strategy: 'Что делегировать?',
+    assessment: 'Кому делегировать?',
+    planningTool: 'План делегирования',
+    aiCoach: 'AI Коуч',
+    delegationTitle: 'Делегирование',
   },
   introduction: {
     module: 'Модуль 1',
@@ -37,7 +32,6 @@ export const ru = {
     didYouKnow: {
       title: 'Знаете ли вы?',
       fact1: 'По данным исследований, менеджеры, которые эффективно делегируют, на 33% чаще получают повышение, чем те, кто пытается все делать самостоятельно.',
-      fact2: 'Способность делегировать показывает масштаб мышления руководителя. Способен мыслить задачами команды — может делегировать. Думает только о своём результате — не делегирует.',
     },
     goToPractice: 'Перейти к практике',
   },
@@ -138,7 +132,7 @@ export const ru = {
     ],
   },
   delegationPlanner: {
-    title: 'Конструктор Плана',
+    title: 'Конструктор поручений',
     instrument: 'Инструмент',
     generateInstruction: 'Сформулировать поручение',
     generateInstructionHint: 'Заполните все поля, и AI Коуч создаст готовый текст поручения.',

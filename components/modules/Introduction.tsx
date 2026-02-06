@@ -40,6 +40,9 @@ export const Introduction: React.FC<IntroductionProps> = ({ onNext }) => {
           <p>
             {t.introduction.iWillDoItMyself.burnoutWarning}
           </p>
+          <p className="mt-4">
+            Какие преимущества возникают, если Вы начинаете делегировать?
+          </p>
         </div>
       </section>
 
@@ -73,9 +76,6 @@ export const Introduction: React.FC<IntroductionProps> = ({ onNext }) => {
         <h3 className="font-semibold text-blue-900 mb-2">{t.introduction.didYouKnow.title}</h3>
         <p className="text-blue-800 text-sm">
           {t.introduction.didYouKnow.fact1}
-        </p>
-        <p className="text-blue-800 text-sm">
-          {t.introduction.didYouKnow.fact2}
         </p>
       </div>
 

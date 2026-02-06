@@ -6,12 +6,7 @@ export const en = {
     assessment: 'Who to Delegate to?',
     planningTool: 'Delegation Planner',
     aiCoach: 'AI Coach (ProTalk)',
-    biteSizedTraining: 'Bite-Sized Training™',
-    basedOnMindTools: 'Based on Mind Tools materials',
-    delegationAi: {
-      part1: 'Delegation',
-      part2: 'AI',
-    },
+    delegationTitle: 'Delegation',
   },
   introduction: {
     module: 'Module 1',

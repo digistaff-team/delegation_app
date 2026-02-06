@@ -70,6 +70,7 @@ function App() {
         <main
           ref={mainContentRef}
           className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12"
+          onClick={() => setIsSidebarOpen(false)}
         >
           {renderContent()}
         </main>
