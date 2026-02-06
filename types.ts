@@ -33,5 +33,5 @@ export interface DelegationPlan {
 
 export interface ProTalkConfig {
   botToken: string;
-  botId: number;
+  botId: string;
 }

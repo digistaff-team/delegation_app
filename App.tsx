@@ -6,11 +6,13 @@ import { Strategy } from './components/modules/Strategy';
 import { Assessment } from './components/modules/Assessment';
 import { DelegationPlanner } from './components/modules/DelegationPlanner';
 import { AICoach } from './components/AICoach';
+import { useLocalization } from './components/useLocalization';
 import { ModuleType } from './types';
 
 function App() {
   const [currentModule, setCurrentModule] = useState<ModuleType>(ModuleType.INTRODUCTION);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const t = useLocalization();
   const mainContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,9 +40,9 @@ function App() {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      <Sidebar 
-        currentModule={currentModule} 
-        onSelectModule={setCurrentModule} 
+      <Sidebar
+        currentModule={currentModule}
+        onSelectModule={setCurrentModule}
         isOpen={isSidebarOpen}
         setIsOpen={setIsSidebarOpen}
       />
@@ -49,10 +51,14 @@ function App() {
         {/* Mobile Header */}
         <div className="lg:hidden bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-             <img src="https://i.ibb.co/VYn2JXwF/100-100.png" alt="Logo" className="w-8 h-8 rounded-lg shadow-sm" />
-            <span className="font-bold text-slate-800">Мастерство управления</span>
+            <img
+              src="https://i.ibb.co/VYn2JXwF/100-100.png"
+              alt="Logo"
+              className="w-8 h-8 rounded-lg object-contain"
+            />
+            <span className="font-bold text-slate-800">{t.appTitle}</span>
           </div>
-          <button 
+          <button
             onClick={() => setIsSidebarOpen(true)}
             className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg"
           >
@@ -61,11 +67,11 @@ function App() {
         </div>
 
         {/* Main Content Scroll Area */}
-        <main 
+        <main
           ref={mainContentRef}
           className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12"
         >
-           {renderContent()}
+          {renderContent()}
         </main>
       </div>
     </div>

@@ -15,6 +15,14 @@ View your app in AI Studio: https://ai.studio/apps/drive/14qSvy-wlf3mKLNRbi3atUY
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. Run the app:
    `npm run dev`
+
+## Vercel Deployment
+
+Set the following environment variables in Vercel (Project Settings → Environment Variables):
+
+- `VITE_PROTALK_BOT_TOKEN`
+- `VITE_PROTALK_BOT_ID`
+
+Then deploy normally. The app builds with `npm run build` and outputs to `dist/`.
