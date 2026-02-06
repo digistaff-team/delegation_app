@@ -37,6 +37,12 @@ const tasks: TaskItem[] = [
         title: "Подготовка черновика презентации для клиентов", 
         type: 'partial', 
         explanation: "Черновик может сделать сотрудник (частичное делегирование), финальную правку - вы." 
+    },
+    { 
+        id: 5, 
+        title: "Урегулирование конфликта с VIP-клиентом", 
+        type: 'keep', 
+        explanation: "Задачи с высокой ценой ошибки и репутационными рисками требуют вашего личного участия." 
     }
 ];
 
@@ -75,7 +81,7 @@ export const Strategy: React.FC<StrategyProps> = ({ onNext }) => {
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">Результат</h2>
                     <div className="text-6xl font-bold text-blue-600 mb-4">{score} / {tasks.length}</div>
                     <p className="text-slate-600 mb-8">
-                        {score === tasks.length ? "Отличная интуиция! Вы четко понимаете границы делегирования." : "Неплохо, но есть над чем поработать. Помните: рутину - отдаем, стратегию и HR - оставляем."}
+                        {score === tasks.length ? "Отличная интуиция! Вы четко понимаете границы делегирования." : "Неплохо, но есть над чем поработать. Помните: рутину - отдаем, стратегию и риски - оставляем."}
                     </p>
                     <div className="flex justify-center gap-4">
                         <Button variant="outline" onClick={reset}><RefreshCw className="mr-2 w-4 h-4"/> Попробовать снова</Button>
