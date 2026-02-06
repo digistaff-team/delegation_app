@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Menu } from 'lucide-react';
 import { Sidebar } from './components/Sidebar';
 import { Introduction } from './components/modules/Introduction';
@@ -11,6 +11,13 @@ import { ModuleType } from './types';
 function App() {
   const [currentModule, setCurrentModule] = useState<ModuleType>(ModuleType.INTRODUCTION);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const mainContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (mainContentRef.current) {
+      mainContentRef.current.scrollTop = 0;
+    }
+  }, [currentModule]);
 
   const renderContent = () => {
     switch (currentModule) {
@@ -54,7 +61,10 @@ function App() {
         </div>
 
         {/* Main Content Scroll Area */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12">
+        <main 
+          ref={mainContentRef}
+          className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12"
+        >
            {renderContent()}
         </main>
       </div>

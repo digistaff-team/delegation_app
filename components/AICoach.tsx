@@ -20,8 +20,8 @@ export const AICoach: React.FC = () => {
   const [chatId] = useState(() => `coach_${Date.now()}`);
 
   const proTalkService = new ProTalkService({
-    botToken: 'demo_token', 
-    botId: 14896
+    botToken: import.meta.env.VITE_BOT_TOKEN || 'demo_token', 
+    botId: Number(import.meta.env.VITE_BOT_ID) || 14896
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);

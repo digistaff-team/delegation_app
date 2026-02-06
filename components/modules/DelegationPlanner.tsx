@@ -20,10 +20,10 @@ export const DelegationPlanner: React.FC = () => {
   const [aiResult, setAiResult] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
 
-  // Инициализация сервиса ProTalk с демо-данными или данными из конфига
+  // Инициализация сервиса ProTalk с данными из переменных окружения или демо-данными
   const proTalkService = new ProTalkService({
-    botToken: 'demo_token', 
-    botId: 14896
+    botToken: import.meta.env.VITE_PROTALK_BOT_TOKEN || 'demo_token', 
+    botId: Number(import.meta.env.VITE_PROTALK_BOT_ID) || 53194
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
