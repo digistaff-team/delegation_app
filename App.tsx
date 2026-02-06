@@ -42,11 +42,7 @@ function App() {
         {/* Mobile Header */}
         <div className="lg:hidden bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img 
-              src="https://i.ibb.co/VYn2JXwF/100-100.png" 
-              alt="Logo" 
-              className="w-8 h-8 rounded-lg object-contain"
-            />
+             <img src="https://i.ibb.co/VYn2JXwF/100-100.png" alt="Logo" className="w-8 h-8 rounded-lg shadow-sm" />
             <span className="font-bold text-slate-800">Мастерство управления</span>
           </div>
           <button 

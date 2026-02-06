@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, CheckCircle, PenTool, Bot, BarChart2, Menu, X, ExternalLink } from 'lucide-react';
+import { BookOpen, CheckCircle, PenTool, Bot, BarChart2, X, ExternalLink } from 'lucide-react';
 import { ModuleType } from '../types';
 
 interface SidebarProps {
@@ -37,11 +37,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentModule, onSelectModule,
       `}>
         <div className="flex items-center justify-between h-16 px-6 border-b border-slate-100 shrink-0">
           <div className="flex items-center gap-3 font-bold text-xl text-slate-800">
-            <img 
-              src="https://i.ibb.co/VYn2JXwF/100-100.png" 
-              alt="Logo" 
-              className="w-8 h-8 rounded-lg object-contain"
-            />
+            <img src="https://i.ibb.co/VYn2JXwF/100-100.png" alt="Logo" className="w-8 h-8 rounded-lg shadow-sm" />
             <span>Делегирование</span>
           </div>
           <button onClick={() => setIsOpen(false)} className="lg:hidden text-slate-500 hover:text-slate-700 transition-colors">
