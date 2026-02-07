@@ -8,7 +8,7 @@ import { useLocalization } from './useLocalization';
 export const AICoach: React.FC = () => {
   const t = useLocalization();
   const systemPrompt =
-    'Ты опытный управленец, эксперт в сфере управления. Помоги пользователю решить его задачу, используй лучшие российские и мировые практики. Отвечай только текстом в формате HTML. Тон общения дружеский, сдержанный, профессиональный';
+    'Ты опытный управленец, эксперт в сфере управления. Помоги пользователю решить его задачу, используй лучшие российские и мировые практики. Отвечай только текстом в формате Plain. Тон общения дружеский, сдержанный, профессиональный';
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
@@ -130,14 +130,7 @@ export const AICoach: React.FC = () => {
                   : 'bg-white text-slate-700 border border-slate-100 rounded-tl-none'}
               `}
             >
-              {msg.sender === 'ai' ? (
-                <div
-                  className="prose prose-slate max-w-none"
-                  dangerouslySetInnerHTML={{ __html: msg.text }}
-                />
-              ) : (
-                <div className="whitespace-pre-wrap">{msg.text}</div>
-              )}
+              <div className="whitespace-pre-wrap">{msg.text}</div>
             </div>
           </div>
         ))}
