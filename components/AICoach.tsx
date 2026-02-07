@@ -7,6 +7,8 @@ import { useLocalization } from './useLocalization';
 
 export const AICoach: React.FC = () => {
   const t = useLocalization();
+  const systemPrompt =
+    'Ты опытный управленец, эксперт в сфере управления. Помоги пользователю решить его задачу, используй лучшие российские и мировые практики. Отвечай только текстом в формате HTML. Тон общения дружеский, сдержанный, профессиональный';
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
@@ -53,7 +55,10 @@ export const AICoach: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const responseText = await proTalkService.sendMessage(chatId, userMsg.text);
+      const responseText = await proTalkService.sendMessage(
+        chatId,
+        `${systemPrompt}\n\n${userMsg.text}`
+      );
 
       const aiMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
