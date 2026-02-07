@@ -4,6 +4,6 @@ import App from '../App';
 describe('App', () => {
   it('renders the app shell', () => {
     render(<App />);
-    expect(screen.getByText(/delegation/i)).toBeInTheDocument();
+    expect(screen.getByText(/делегирование/i)).toBeInTheDocument();
   });
 });

@@ -17,8 +17,13 @@ function App() {
 
   useEffect(() => {
     const scrollToTop = () => {
-      if (mainContentRef.current) {
-        mainContentRef.current.scrollTo({ top: 0 });
+      const node = mainContentRef.current;
+      if (node) {
+        if (typeof node.scrollTo === 'function') {
+          node.scrollTo({ top: 0 });
+        } else {
+          node.scrollTop = 0;
+        }
       }
       window.scrollTo({ top: 0 });
     };
