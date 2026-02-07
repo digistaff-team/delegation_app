@@ -16,9 +16,16 @@ function App() {
   const mainContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (mainContentRef.current) {
-      mainContentRef.current.scrollTop = 0;
-    }
+    const scrollToTop = () => {
+      if (mainContentRef.current) {
+        mainContentRef.current.scrollTo({ top: 0 });
+      }
+      window.scrollTo({ top: 0 });
+    };
+
+    // Ensure scroll resets after content renders
+    scrollToTop();
+    requestAnimationFrame(scrollToTop);
   }, [currentModule]);
 
   const renderContent = () => {
@@ -39,7 +46,7 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex h-screen bg-slate-50">
       <Sidebar
         currentModule={currentModule}
         onSelectModule={setCurrentModule}

@@ -43,9 +43,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentModule, onSelectModule,
       {/* Sidebar Container */}
       <div
         className={`
-          fixed top-0 left-0 z-30 h-full w-72 bg-white border-r border-slate-200 transform transition-transform duration-300 ease-in-out flex flex-col
-          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-          lg:translate-x-0 lg:static lg:flex
+          fixed top-0 right-0 z-30 h-2/3 w-72 bg-white border-l border-slate-200 transform transition-transform duration-300 ease-in-out flex flex-col
+          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+          lg:translate-x-0 lg:static lg:flex lg:h-full lg:w-72 lg:border-l-0 lg:border-r lg:left-0 lg:right-auto
         `}
       >
         <div className="flex items-center justify-between h-16 px-6 border-b border-slate-100 shrink-0">

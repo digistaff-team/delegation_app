@@ -74,6 +74,12 @@ export const en = {
         type: 'partial',
         explanation: 'An employee can make a draft (partial delegation), but you should do the final edit.',
       },
+      {
+        id: 5,
+        title: 'Preparing a monthly operational metrics report',
+        type: 'delegate',
+        explanation: 'Regular reporting with clear rules is a good fit for delegation.',
+      },
     ],
     feedback: {
       correct: 'Correct! ',

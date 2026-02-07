@@ -120,7 +120,7 @@ export const Strategy: React.FC<StrategyProps> = ({ onNext }) => {
                 {feedback.correct ? t.strategy.correct : t.strategy.incorrect}
               </div>
               <p>{feedback.text}</p>
-              <Button onClick={nextTask} className="mt-4 bg-white border border-current hover:bg-slate-50 text-inherit">
+              <Button onClick={nextTask} variant="outline" className="mt-4 text-slate-800">
                 {t.strategy.next}
               </Button>
             </div>
