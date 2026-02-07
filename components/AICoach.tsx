@@ -130,7 +130,14 @@ export const AICoach: React.FC = () => {
                   : 'bg-white text-slate-700 border border-slate-100 rounded-tl-none'}
               `}
             >
-              <div className="whitespace-pre-wrap">{msg.text}</div>
+              {msg.sender === 'ai' ? (
+                <div
+                  className="prose prose-slate max-w-none"
+                  dangerouslySetInnerHTML={{ __html: msg.text }}
+                />
+              ) : (
+                <div className="whitespace-pre-wrap">{msg.text}</div>
+              )}
             </div>
           </div>
         ))}
