@@ -51,7 +51,7 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen bg-slate-50">
+    <div className="flex h-screen bg-slate-50 overflow-hidden">
       <Sidebar
         currentModule={currentModule}
         onSelectModule={setCurrentModule}
@@ -81,7 +81,7 @@ function App() {
         {/* Main Content Scroll Area */}
         <main
           ref={mainContentRef}
-          className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12"
+          className="flex-1 overflow-y-auto lg:overflow-y-scroll lg:[scrollbar-gutter:stable] p-4 md:p-8 lg:p-12"
           onClick={() => setIsSidebarOpen(false)}
         >
           {renderContent()}
