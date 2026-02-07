@@ -4,6 +4,8 @@ import { Button } from './Button';
 import { ChatMessage, ProTalkConfig } from '../types';
 import { ProTalkService } from '../services/proTalkService';
 import { useLocalization } from './useLocalization';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 export const AICoach: React.FC = () => {
   const t = useLocalization();
@@ -130,7 +132,16 @@ export const AICoach: React.FC = () => {
                   : 'bg-white text-slate-700 border border-slate-100 rounded-tl-none'}
               `}
             >
-              <div className="whitespace-pre-wrap">{msg.text}</div>
+              {msg.sender === 'ai' ? (
+                <div
+                  className="prose prose-slate max-w-none"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(marked.parse(msg.text) as string),
+                  }}
+                />
+              ) : (
+                <div className="whitespace-pre-wrap">{msg.text}</div>
+              )}
             </div>
           </div>
         ))}
