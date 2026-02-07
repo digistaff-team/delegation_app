@@ -86,7 +86,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentModule, onSelectModule,
         <div className="p-4 border-t border-slate-100 shrink-0 bg-slate-50/50">
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
             <p className="text-xs text-slate-600 mb-3 leading-relaxed font-medium">
-              ИСКУССТВО ТОЧНЫХ ПОРУЧЕНИЙ - онлайн-курс для современных руководителей
+              ИСКУССТВО ТОЧНЫХ ПОРУЧЕНИЙ - онлайн-курс для руководителей
             </p>
             <a
               href="https://abconsult.pro/itp"
